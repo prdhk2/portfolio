@@ -6,26 +6,6 @@
     },
     "routes": [
         { 
-            "src": "/css/(.*)", 
-            "dest": "/public/css/$1" 
-        },
-        { 
-            "src": "/js/(.*)", 
-            "dest": "/public/js/$1" 
-        },
-        { 
-            "src": "/asset/(.*)", 
-            "dest": "/public/asset/$1" 
-        },
-        { 
-            "src": "/images/(.*)", 
-            "dest": "/public/images/$1" 
-        },
-        { 
-            "src": "/build/(.*)", 
-            "dest": "/public/build/$1" 
-        },
-        { 
             "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))", 
             "dest": "/public/$1" 
         },
