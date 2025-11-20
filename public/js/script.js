@@ -13,18 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const projectSamples = {
         laravel: [
             { 
-                title: 'E-Shop Backend', 
-                description: 'E-commerce backend with orders, payments, and API integration', 
+                title: 'API IoT Device Management', 
+                description: 'API integration for IoT device management and data collection', 
                 url: '#', 
-                code: '#',
+                code: 'https://github.com/prdhk2/API_Integration_IoT-Laravel12',
                 meta: 'Laravel, MySQL'
-            },
-            { 
-                title: 'Admin Dashboard', 
-                description: 'Comprehensive admin panel with real-time analytics', 
-                url: '#', 
-                code: '#',
-                meta: 'Laravel, Livewire'
             },
             { 
                 title: 'Admin Dashboard', 
@@ -52,11 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
         codeigneter: [
             { 
-                title: 'Legacy System Upgrade', 
-                description: 'Migration from CodeIgniter to modern Laravel stack', 
+                title: 'Toko Online "Bakul Sayur"', 
+                description: 'Project Toko Online untuk penjualan sayur secara online, Dilengkap dengan API Pyment gateway (Midtrans)', 
                 url: '#', 
-                code: '#',
-                meta: 'CodeIgniter, Laravel'
+                code: 'https://github.com/prdhk2/toko-online-codeigniter3',
+                meta: 'CodeIgniter 3, MySQL '
             }
         ],
         iot: []
@@ -126,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.renderProjects(projects, techName);
                 
             } catch (error) {
-                console.warn('Using sample data due to:', error.message);
+                // console.warn('Using sample data due to:', error.message);
                 this.renderProjects(projectSamples[tech] || [], techName);
             }
 
@@ -216,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize application
     function init() {
         if (!elements.skillsGrid || !elements.projectsSection) {
-            console.warn('Required DOM elements not found');
+            // console.warn('Required DOM elements not found');
             return;
         }
         
@@ -299,61 +292,3 @@ const projectsManager = {
         scrollLock.disable();
     }
 };
-
-const contactModal = {
-    init() {
-        this.modal = document.getElementById('contactModal');
-        this.contactBtn = document.getElementById('contactBtn');
-        this.closeBtn = this.modal.querySelector('.contact-modal__close');
-        this.backdrop = this.modal.querySelector('.contact-modal__backdrop');
-        
-        this.bindEvents();
-    },
-    
-    bindEvents() {
-        // Open modal
-        this.contactBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            this.open();
-        });
-        
-        // Close modal
-        this.closeBtn.addEventListener('click', () => this.close());
-        this.backdrop.addEventListener('click', () => this.close());
-        
-        // Close on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && !this.modal.hidden) {
-                this.close();
-            }
-        });
-        
-        // Prevent modal content click from closing modal
-        this.modal.querySelector('.contact-modal__content').addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
-    },
-    
-    open() {
-        this.modal.hidden = false;
-        document.body.classList.add('modal-open');
-        
-        // Focus management for accessibility
-        setTimeout(() => {
-            this.closeBtn.focus();
-        }, 100);
-    },
-    
-    close() {
-        this.modal.hidden = true;
-        document.body.classList.remove('modal-open');
-        
-        // Return focus to contact button
-        this.contactBtn.focus();
-    }
-};
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    contactModal.init();
-});
