@@ -31,7 +31,7 @@
 
     <section class="overview">
         <h2>What I do</h2>
-        <p>Design and implement scalable web apps, APIs, and tooling. I enjoy working across the stack and improving developer workflows.</p>
+        <p><span class="margin-left: 1rem;">Design</span> and implement scalable web apps, APIs, and tooling. I enjoy working across the stack and improving developer workflows.</p>
 
         <div class="skills-grid" aria-hidden="false" id="skillsGrid">
             <button class="skill" data-tech="laravel" type="button">Laravel</button>
