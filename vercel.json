@@ -8,12 +8,24 @@
     },
     "routes": [
         {
-            "src": "/build/(.*)",
-            "dest": "/public/build/"
+            "src": "/css/(.*)",
+            "dest": "/public/css/$1"
         },
         {
-            "src": "/assets/(.*)",
-            "dest": "/public/build/"
+            "src": "/js/(.*)",
+            "dest": "/public/js/$1"
+        },
+        {
+            "src": "/images/(.*)",
+            "dest": "/public/images/$1"
+        },
+        {
+            "src": "/asset/(.*)",
+            "dest": "/public/asset/$1"
+        },
+        {
+            "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot))",
+            "dest": "/public/$1"
         },
         {
             "src": "/(.*)",
