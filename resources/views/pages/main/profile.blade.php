@@ -66,9 +66,6 @@
 @push('scripts')
 <script type="module" src="{{ asset('js/contact-modal.js') }}"></script>
 <script>
-    // console.log('=== DEBUG PROJECT DATA ===');
-    
-    // Sample data dari database
     const projectSamples = {
         @foreach(['laravel', 'nodejs', 'codeigneter', 'iot'] as $tech)
         '{{ $tech }}': [
