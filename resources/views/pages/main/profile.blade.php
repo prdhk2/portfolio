@@ -1,23 +1,24 @@
-{{-- resources/views/profile.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
 <main class="page" aria-labelledby="profileTitle">
     <header class="hero">
         <div class="hero-left">
-            <h1 id="profileTitle">Pradhika Setyawan</h1>
-            <p class="role" style="color: #7c5cff">Engineer · Web Developer</p>
-            <p class="tagline">Building reliable systems and beautiful web experiences — JavaScript, PHP, Laravel, and modern UX.</p>
+            <h1 id="profileTitle">{{ App\Models\ProfileSetting::getValue('hero_title', 'Pradhika Setyawan') }}</h1>
+            <p class="role">{{ App\Models\ProfileSetting::getValue('hero_role', 'Engineer · Web Developer') }}</p>
+            <p class="tagline">{{ App\Models\ProfileSetting::getValue('hero_tagline', 'Building reliable systems and beautiful web experiences') }}</p>
 
             <div class="badges" aria-hidden="false">
-                <span class="badge">Engineer</span>
-                <span class="badge">Web Developer</span>
-                <span class="badge">UI/UX</span>
+                @php
+                    $badges = json_decode(App\Models\ProfileSetting::getValue('badges', '[]'), true) ?: ['Engineer', 'Web Developer', 'UI/UX'];
+                @endphp
+                @foreach($badges as $badge)
+                    <span class="badge">{{ $badge }}</span>
+                @endforeach
             </div>
 
             <div class="actions">
-                {{-- Ganti jadi button dengan ID --}}
-                <button class="btn primary" id="contactBtn">Contact</button>
+                <button class="btn primary" id="contactBtn" type="button">Contact</button>
                 <a class="btn ghost" href="{{ url('/resume') }}">Resume</a>
             </div>
         </div>
@@ -30,14 +31,13 @@
     </header>
 
     <section class="overview">
-        <h2>What I do</h2>
-        <p><span class="margin-left: 1rem;">Design</span> and implement scalable web apps, APIs, and tooling. I enjoy working across the stack and improving developer workflows.</p>
+        <h2>{{ App\Models\ProfileSetting::getValue('overview_title', 'What I do') }}</h2>
+        <p>{{ App\Models\ProfileSetting::getValue('overview_description', 'Design and implement scalable web apps, APIs, and tooling.') }}</p>
 
         <div class="skills-grid" aria-hidden="false" id="skillsGrid">
-            <button class="skill" data-tech="laravel" type="button">Laravel</button>
-            <button class="skill" data-tech="nodejs" type="button">Node Js</button>
-            <button class="skill" data-tech="codeigneter" type="button">Codeigneter</button>
-            <button class="skill" data-tech="iot" type="button">IoT</button>
+            @foreach(App\Models\Skill::active()->forGrid()->sorted()->get() as $skill)
+                <button class="skill" data-tech="{{ $skill->data_tech }}" type="button">{{ $skill->name }}</button>
+            @endforeach
         </div>
 
         <!-- Projects panel -->
@@ -55,14 +55,39 @@
 
 {{-- Include Contact Modal Component --}}
 <x-contact-modal 
-    facebookUrl="https://facebook.com/prdhk.sty"
-    instagramUrl="https://instagram.com/prdhk_" 
-    whatsappNumber="6285888203401"
-    emailAddress="pradhika2112@gmail.com"
+    facebookUrl="https://facebook.com/yourprofile"
+    instagramUrl="https://instagram.com/yourprofile" 
+    whatsappNumber="6281234567890"
+    emailAddress="your.email@example.com"
 />
 
 @endsection
 
 @push('scripts')
 <script type="module" src="{{ asset('js/contact-modal.js') }}"></script>
+<script>
+    // console.log('=== DEBUG PROJECT DATA ===');
+    
+    // Sample data dari database
+    const projectSamples = {
+        @foreach(['laravel', 'nodejs', 'codeigneter', 'iot'] as $tech)
+        '{{ $tech }}': [
+            @foreach(App\Models\Project::active()->byTechnology($tech)->sorted()->get() as $project)
+            {
+                title: '{{ addslashes($project->title) }}',
+                description: '{{ addslashes($project->description) }}',
+                url: '{{ $project->project_url }}',
+                code: '{{ $project->code_url }}',
+                meta: '{{ $project->meta }}'
+            },
+            @endforeach
+        ],
+        @endforeach
+    };
+
+    // console.log('ProjectSamples from DB:', projectSamples);
+    // console.log('Laravel projects count:', projectSamples.laravel ? projectSamples.laravel.length : 0);
+</script>
+
+<script type="module" src="{{ asset('js/script.js') }}"></script>
 @endpush
